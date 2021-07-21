@@ -6,13 +6,13 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:18:21 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/21 12:35:35 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 20:02:31 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void push_swap(t_data *data)
+void	push_swap(t_data *data)
 {
 	if (data->size_a == 2)
 	{
@@ -36,4 +36,3 @@ void push_swap(t_data *data)
 		sort_big_stack(data);
 	}
 }
-

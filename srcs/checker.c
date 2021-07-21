@@ -6,13 +6,21 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 17:20:27 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/21 13:58:32 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 19:26:09 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void move_compare_and_exec(t_data *data, char *line)
+void	quit_properly(t_data *data)
+{
+	write(2, "Error\n", 6);
+	free(data->stack_a);
+	free(data->stack_b);
+	exit(EXIT_FAILURE);
+}
+
+void	move_compare_and_exec(t_data *data, char *line)
 {
 	if (ft_strncmp(line, "ss", 4) == 0)
 		ss_c(data);
@@ -37,35 +45,24 @@ void move_compare_and_exec(t_data *data, char *line)
 	else if (ft_strncmp(line, "pb", 4) == 0)
 		pb_c(data);
 	else
-	{
-		write(2, "Error\n", 6);								
-		free(data->stack_a);
-		free(data->stack_b);
-		exit(EXIT_FAILURE);
-	}
-
+		quit_properly(data);
 }
 
-void checker(t_data *data)
+void	checker(t_data *data)
 {
-	char *line = NULL; 
-	int ret = 1;
+	char	*line;
+	int		ret;
 
+	ret = 1;
+	line = NULL;
 	while (ret > 0)
 	{
 		ret = get_next_line(0, &line);
 		if (ret < 0)
-		{
-           	write(2, "Error\n", 6);
-			free(data->stack_a);
-			free(data->stack_b);
-			exit(EXIT_FAILURE);
-		}
+			quit_properly(data);
 		else if (ret == 1)
-		{
 			move_compare_and_exec(data, line);
-		}
-		else if (ret == 0) 
+		else if (ret == 0)
 		{
 			free(line);
 			return ;
@@ -74,12 +71,31 @@ void checker(t_data *data)
 	}
 }
 
-int main(int argc, char **argv)
+void	main_part_2(t_data *data)
 {
-	t_data data; 
-	char **tmp;
-	int tmp_malloced = 0;
+	if (arraySortedOrNot(data) == 1)
+	{
+		write(1, "OK\n", 3);
+		free(data->stack_a);
+		free(data->stack_b);
+		return ;
+	}	
+	checker(data);
+	if (arraySortedOrNot(data) == 1 && data->size_b == 0)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	free(data->stack_a);
+	free(data->stack_b);
+}
 
+int	main(int argc, char **argv)
+{
+	t_data	data;
+	char	**tmp;
+	int		tmp_malloced;
+
+	tmp_malloced = 0;
 	tmp = &argv[1];
 	data.inst_count = 0;
 	if (argc == 2 && just_digit_and_space(argv[1]))
@@ -87,28 +103,15 @@ int main(int argc, char **argv)
 		tmp = ft_split(argv[1], ' ');
 		tmp_malloced++;
 	}
-    if (parsing(argc, tmp) == -1)
-        return (-1);
+	if (parsing(argc, tmp) == -1)
+		return (-1);
 	input_strtoint(tmp, &data);
 	if (check_doublons(&data) == -1)
-        return (-1);
+		return (-1);
 	selectionSort(&data);
 	index_attribution(&data);
 	if (tmp_malloced != 0)
 		free_tmp(tmp);
-	if (arraySortedOrNot(&data) == 1)
-	{
-		write(1, "OK\n", 3);
-		free(data.stack_a);
-		free(data.stack_b);	
-    	return 0;
-	}	
-	checker(&data);
-	if (arraySortedOrNot(&data) == 1 && data.size_b == 0)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	free(data.stack_a);
-	free(data.stack_b);	
-    return 0;
+	main_part_2(&data);
+	return (0);
 }

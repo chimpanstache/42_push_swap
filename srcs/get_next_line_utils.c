@@ -6,16 +6,16 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 14:37:35 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 19:33:02 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 19:37:37 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void		*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char *dest1;
-	char *src1;
+	char	*dest1;
+	char	*src1;
 
 	if (dest == NULL && src == NULL)
 		return (NULL);
@@ -31,7 +31,7 @@ void		*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char		*ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
 	char	*copy;
 	int		i;
@@ -39,12 +39,14 @@ char		*ft_strdup(const char *s)
 	i = 0;
 	if (!s)
 	{
-		if (!(copy = (char *)malloc(sizeof(*copy) * (1))))
+		copy = (char *)malloc(sizeof(*copy) * (1));
+		if (!copy)
 			return (NULL);
 		copy[i] = '\0';
 		return (copy);
 	}
-	if (!(copy = (char *)malloc(sizeof(*copy) * (ft_strlen(s) + 1))))
+	copy = (char *)malloc(sizeof(*copy) * (ft_strlen(s) + 1));
+	if (!copy)
 		return (NULL);
 	while (s[i])
 	{
@@ -55,7 +57,7 @@ char		*ft_strdup(const char *s)
 	return (copy);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char		*arr;
 	size_t		s1_l;
@@ -63,12 +65,15 @@ char		*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 && !s2)
 		return (0);
-	if (!s1 || !s2)
-		return (!s1 ? ft_strdup(s2) : ft_strdup(s1));
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	s1_l = ft_strlen(s1);
 	s2_l = ft_strlen(s2);
-	if (!(arr = malloc(sizeof(char) * (s1_l + s2_l + 1))))
-		return (0);
+	arr = malloc(sizeof(char) * (s1_l + s2_l + 1));
+	if (!arr)
+		return (NULL);
 	ft_memcpy(arr, s1, s1_l);
 	ft_memcpy(arr + s1_l, s2, s2_l);
 	arr[s1_l + s2_l] = '\0';
@@ -76,7 +81,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (arr);
 }
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*arr;
 	size_t	i;
@@ -85,7 +90,8 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (start > ft_strlen(s))
 		len = 0;
-	if (!(arr = (char*)malloc(sizeof(char) * (len + 1))))
+	arr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!arr)
 		return (NULL);
 	i = 0;
 	while (i < len && s[i] != '\0')
