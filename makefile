@@ -6,15 +6,15 @@
 #    By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 11:42:06 by ehafidi           #+#    #+#              #
-#    Updated: 2021/07/20 21:00:45 by ehafidi          ###   ########.fr        #
+#    Updated: 2021/07/21 16:09:00 by ehafidi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_PS = srcs/main.c srcs/push_swap.c srcs/actions_s.c srcs/actions_r.c srcs/utils.c\
+SRC_PS = srcs/main.c srcs/split.c srcs/push_swap.c srcs/actions_s.c srcs/actions_r.c srcs/utils.c\
 	srcs/actions_rr.c srcs/actions_p.c srcs/3_rand_num.c  srcs/selection_sort.c \
 	srcs/sort_big_stack.c \
 
-SRC_CH = srcs/checker.c srcs/utils.c srcs/get_next_line.c srcs/get_next_line_utils.c \
+SRC_CH = srcs/checker.c srcs/split.c srcs/utils.c srcs/get_next_line.c srcs/get_next_line_utils.c \
 	srcs/actions_rr_checker.c srcs/actions_p_checker.c srcs/actions_s_checker.c \
 	srcs/actions_r_checker.c srcs/selection_sort.c \
 
@@ -49,6 +49,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME_PS) $(NAME_CH)
 	$(RM) *.dSYM
+	$(RM) values
 
 re: fclean all
 	

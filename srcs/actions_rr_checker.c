@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 19:56:22 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 19:16:38 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 11:58:26 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void rra_c(t_data *data)
 	tmp1.index = data->stack_a[(data->size_a - 1)].index;
 	tmp1.sorted = data->stack_a[(data->size_a - 1)].sorted;
 
-	for (int i = data->size_a; (i) > 0 ; i--)
+	for (int i = data->size_a - 1; (i) > 0 ; i--)
 	{
 		data->stack_a[i].value = data->stack_a[i - 1].value;
 		data->stack_a[i].index = data->stack_a[i - 1].index;		
@@ -41,7 +41,7 @@ void rrb_c(t_data *data)
 	tmp1.index = data->stack_b[(data->size_b - 1)].index;
 	tmp1.sorted = data->stack_b[(data->size_b - 1)].sorted;
 
-	for (int i = data->size_b; (i) > 0 ; i--)
+	for (int i = data->size_b - 1; (i) > 0 ; i--)
 	{
 		data->stack_b[i].value = data->stack_b[i - 1].value;
 		data->stack_b[i].index = data->stack_b[i - 1].index;		

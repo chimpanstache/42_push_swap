@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:17:03 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 21:07:48 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 13:56:39 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *s);
 int					get_next_line(int fd, char **line);
+char			**ft_split(char const *s, char c);
+void free_tmp(char **tmp);
+int		just_digit_and_space(char *str);
 
 void selectionSort(t_data *data);
 void index_attribution(t_data *data);

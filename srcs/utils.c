@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 20:25:08 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 21:06:32 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 16:35:02 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int parse_input(char *input)
 
 int parsing(int argc, char **argv)
 {
-    int ind = 1;
+    int ind = 0;
 
     if (argc < 2)
     {
@@ -116,20 +116,20 @@ int parsing(int argc, char **argv)
     }
     while(argv[ind])
     {
-        if (parse_input(argv[ind]) == -1)
+     	if (parse_input(argv[ind]) == -1)
         {    
            	write(2, "Error\n", 6);
-            return (-1);
+			            exit(EXIT_FAILURE);   
         }
         ind++;
     }
 	ind = 0;
     while(argv[ind])
     {
-        if (ft_atoi_push_swap(argv[ind]) == -1 && ft_strlen(argv[ind]) > 2)
+		if (ft_atoi_push_swap(argv[ind]) == -1 && ft_strlen(argv[ind]) > 2)
         {    
-           	write(2, "Error\n", 6);
-            return (-1);
+			   write(2, "Error\n", 6);
+            exit(EXIT_FAILURE);
         }
         ind++;
     }	
@@ -149,12 +149,12 @@ void input_strtoint(char **argvs, t_data *data)
 	if (!(data->stack_a = (t_stage*)malloc(sizeof(t_stage) * ind)))
 	{
 		write(2, "Error\n", 6);
-		exit(-1);
+            exit(EXIT_FAILURE);
 	}
 	if (!(data->stack_b = (t_stage*)malloc(sizeof(t_stage) * ind)))
 	{
 		write(2, "Error\n", 6);
-		exit(-1);
+            exit(EXIT_FAILURE);
 	}
 	for (int i = 0; i < ind ; i++)
 	{
@@ -190,4 +190,17 @@ int arraySortedOrNot(t_data *data)
             return 0;
 	}
     return 1;
+}
+
+int		just_digit_and_space(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if ((ft_isdigit(str[i]) == 0) && str[i] != ' ' && str[i] != '-')
+			return (0);
+	}
+	return (1);
 }

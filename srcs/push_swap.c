@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:18:21 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 16:03:53 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 12:35:35 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void push_swap(t_data *data)
 	{
 		algo_5(data);
 	}
-	else if (data->size_a <= 500)
+	else if (data->size_a > 5)
 	{
 		sort_big_stack(data);
 	}

@@ -6,7 +6,7 @@ max=$1
 while ((i<$max))
 do
 	tester=1
-	RAND=$((1 + RANDOM % 1000))
+	RAND=$((1 + RANDOM % 150000))
 	for j in "${TAB[@]}"; do
 		if [[ $j == $RAND ]]
 		then
@@ -21,4 +21,4 @@ do
 done
 echo ${TAB[*]} > values
 ARG=$(cat values);
-./push_swap $ARG | ./checker $ARG 
+./push_swap $ARG | ./checker_Mac $ARG

@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 17:20:27 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 21:07:33 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 13:58:32 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,13 @@ void move_compare_and_exec(t_data *data, char *line)
 	else if (ft_strncmp(line, "pb", 4) == 0)
 		pb_c(data);
 	else
+	{
 		write(2, "Error\n", 6);								
+		free(data->stack_a);
+		free(data->stack_b);
+		exit(EXIT_FAILURE);
+	}
+
 }
 
 void checker(t_data *data)
@@ -51,6 +57,9 @@ void checker(t_data *data)
 		if (ret < 0)
 		{
            	write(2, "Error\n", 6);
+			free(data->stack_a);
+			free(data->stack_b);
+			exit(EXIT_FAILURE);
 		}
 		else if (ret == 1)
 		{
@@ -68,33 +77,37 @@ void checker(t_data *data)
 int main(int argc, char **argv)
 {
 	t_data data; 
+	char **tmp;
+	int tmp_malloced = 0;
 
+	tmp = &argv[1];
 	data.inst_count = 0;
-    if (parsing(argc, argv) == -1)
-    {
+	if (argc == 2 && just_digit_and_space(argv[1]))
+	{
+		tmp = ft_split(argv[1], ' ');
+		tmp_malloced++;
+	}
+    if (parsing(argc, tmp) == -1)
         return (-1);
-    }
-	input_strtoint(&argv[1], &data);
-
+	input_strtoint(tmp, &data);
 	if (check_doublons(&data) == -1)
         return (-1);
-
 	selectionSort(&data);
 	index_attribution(&data);
-	// for (int i = 0 ; i < data.size_a ; i++)
-	// {
-	// 	printf("ind[%d]| begin stack a sorted == %d | stack a value == %d\n", data.stack_a[i].index, data.stack_a[i].sorted, data.stack_a[i].value);
-	// } 	
-	checker(&data);
-	if (arraySortedOrNot(&data) == 1 && data.size_b == 0)
+	if (tmp_malloced != 0)
+		free_tmp(tmp);
+	if (arraySortedOrNot(&data) == 1)
 	{
 		write(1, "OK\n", 3);
-	}
+		free(data.stack_a);
+		free(data.stack_b);	
+    	return 0;
+	}	
+	checker(&data);
+	if (arraySortedOrNot(&data) == 1 && data.size_b == 0)
+		write(1, "OK\n", 3);
 	else
-	{
 		write(1, "KO\n", 3);
-	}
-
 	free(data.stack_a);
 	free(data.stack_b);	
     return 0;

@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 20:58:42 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/20 15:42:42 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/21 11:44:52 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,20 @@ int find_smallest(t_data *data , int ind)
 
 void pb_smallest(t_data *data , int ind)
 {
-	while (ind > 0)
-	{
-		ra(data);
-		ind--;
+	int value_to_be_on_top = data->stack_a[ind].index;
+
+    if (ind > (data->size_origin / 2))
+    {
+		while (data->stack_a[0].index != value_to_be_on_top)
+        {
+		    rra(data);
+		}
 	}
+    else
+    {
+		while (data->stack_a[0].index != value_to_be_on_top)
+            ra(data);   
+    }
 	pb(data);
 }
 
