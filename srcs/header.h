@@ -6,109 +6,102 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:17:03 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/21 13:56:39 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/22 13:15:36 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef HEADER_H
+# define HEADER_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <string.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <string.h>
 
 # define BUFFER_SIZE 40
 
-typedef struct		s_stage
+typedef struct s_stage
 {
-	int value;
-	int index;
-	int sorted;
-}					t_stage;
+	int	value;
+	int	index;
+	int	sorted;
+}				t_stage;
 
-typedef struct		s_data
+typedef struct s_data
 {
-	t_stage *stack_a;
-	t_stage *stack_b;
-	int size_a;
-	int size_b;
-	int size_origin;
-	int n_chunk;
-	int size_chunk;
-	int biggest_chunk;
-	int inst_count;	
-}					t_data;
+	t_stage	*stack_a;
+	t_stage	*stack_b;
+	int		size_a;
+	int		size_b;
+	int		size_origin;
+	int		n_chunk;
+	int		size_chunk;
+	int		biggest_chunk;
+	int		inst_count;	
+}				t_data;
 
-void				*ft_memcpy(void *dest, const void *src, size_t n);
-size_t				ft_strlen(const char *str);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strdup(const char *s);
-int					get_next_line(int fd, char **line);
-char			**ft_split(char const *s, char c);
-void free_tmp(char **tmp);
-int		just_digit_and_space(char *str);
+typedef struct s_sort
+{
+	int	max_num;
+	int	max_bits;
+	int	size;
+	int	i;
+	int	j;
+	int	num;
+}				t_sort;
 
-void selectionSort(t_data *data);
-void index_attribution(t_data *data);
-
-// int get_array_size(int *arr);
-void push_swap(t_data *data);
-void ss(t_data *data);
-void sb(t_data *data);
-void sa(t_data *data);
-
-void ra(t_data *data);
-void rb(t_data *data);
-void rr(t_data *data);
-
-void rra(t_data *data);
-void rrb(t_data *data);
-void rrr(t_data *data);
-
-void pa(t_data *data);
-void pb(t_data *data);
-
-void ss_c(t_data *data);
-void sb_c(t_data *data);
-void sa_c(t_data *data);
-
-void ra_c(t_data *data);
-void rb_c(t_data *data);
-void rr_c(t_data *data);
-
-void rra_c(t_data *data);
-void rrb_c(t_data *data);
-void rrr_c(t_data *data);
-
-void pa_c(t_data *data);
-void pb_c(t_data *data);
-
-void algo_3(t_data *data);
-void algo_4(t_data *data);
-void algo_5(t_data *data);
-void algo_100(t_data *data);
-
-int determine_nearest_from_top(t_data *data, int top_of_chunk);
-int determine_nearest_from_bottom(t_data *data, int top_of_chunk);
-
-int nb_of_rrb(t_data *data, int index);
-int nb_of_rb(t_data *data, int index);
-
-void sort_big_stack(t_data *data);
-
-int	ft_atoi_push_swap(const char *str);
-
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *str);
-int arraySortedOrNot(t_data *data);
-
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s);
+int		get_next_line(int fd, char **line);
+char	**ft_split(char const *s, char c);
+void	free_tmp(char **tmp);
+int		just_digit_and_space(char *str);
+void	selectionSort(t_data *data);
+void	index_attribution(t_data *data);
+void	push_swap(t_data *data);
+void	ss(t_data *data);
+void	sb(t_data *data);
+void	sa(t_data *data);
+void	ra(t_data *data);
+void	rb(t_data *data);
+void	rr(t_data *data);
+void	rra(t_data *data);
+void	rrb(t_data *data);
+void	rrr(t_data *data);
+void	pa(t_data *data);
+void	pb(t_data *data);
+void	ss_c(t_data *data);
+void	sb_c(t_data *data);
+void	sa_c(t_data *data);
+void	ra_c(t_data *data);
+void	rb_c(t_data *data);
+void	rr_c(t_data *data);
+void	rra_c(t_data *data);
+void	rrb_c(t_data *data);
+void	rrr_c(t_data *data);
+void	pa_c(t_data *data);
+void	pb_c(t_data *data);
+void	algo_3(t_data *data);
+void	algo_4(t_data *data);
+void	algo_5(t_data *data);
+void	algo_100(t_data *data);
+int		determine_nearest_from_top(t_data *data, int top_of_chunk);
+int		determine_nearest_from_bottom(t_data *data, int top_of_chunk);
+int		nb_of_rrb(t_data *data, int index);
+int		nb_of_rb(t_data *data, int index);
+void	sort_big_stack(t_data *data);
+int		ft_atoi_push_swap(const char *str);
+size_t	ft_strlen(const char *str);
+int		arraySortedOrNot(t_data *data);
 int		ft_isdigit(int c);
-
-int parsing(int argc, char **argv);
-void input_strtoint(char **argvs, t_data *data);
-int check_doublons(t_data *data);
+int		parsing(int argc, char **argv);
+void	input_strtoint(char **argvs, t_data *data);
+int		check_doublons(t_data *data);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
+void	exit_nice(void);
 
-#endif 
+#endif

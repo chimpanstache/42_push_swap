@@ -6,24 +6,24 @@
 #    By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 11:42:06 by ehafidi           #+#    #+#              #
-#    Updated: 2021/07/21 18:26:15 by ehafidi          ###   ########.fr        #
+#    Updated: 2021/07/22 14:01:12 by ehafidi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PS = srcs/main.c srcs/split.c srcs/push_swap.c srcs/actions_s.c srcs/actions_r.c srcs/utils.c\
 	srcs/actions_rr.c srcs/actions_pa.c srcs/actions_pb.c srcs/3_rand_num.c srcs/algo_4_5.c srcs/selection_sort.c \
-	srcs/sort_big_stack.c \
+	srcs/sort_big_stack.c srcs/utils_2.c srcs/utils_3.c\
 
 SRC_CH = srcs/checker.c srcs/split.c srcs/utils.c srcs/get_next_line.c srcs/get_next_line_utils.c \
 	srcs/actions_rr_checker.c srcs/actions_pa_checker.c srcs/actions_pb_checker.c srcs/actions_s_checker.c \
-	srcs/actions_r_checker.c srcs/selection_sort.c \
+	srcs/actions_r_checker.c srcs/selection_sort.c srcs/utils_2.c srcs/utils_3.c \
 
 OBJ_PS = $(SRC_PS:.c=.o)
 
 OBJ_CH = $(SRC_CH:.c=.o)
 
 CC = gcc 
-CCFLAGS = -g -Wall -Wextra -Werror
+CCFLAGS = -Wall -Wextra -Werror
 
 MAKE = make
 

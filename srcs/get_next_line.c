@@ -6,7 +6,7 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:07:02 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/21 19:47:20 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/22 12:48:48 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ char	*ft_readline(char *line, int fd)
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (ft_check_nl(line) < 0 && (ret = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (ft_check_nl(line) < 0)
 	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret <= 0)
+			break ;
 		buf[ret] = '\0';
 		line = ft_strjoin(line, buf);
 		if (!line)
@@ -63,8 +66,6 @@ char	*ft_readline(char *line, int fd)
 			free(buf);
 			return (NULL);
 		}
-		if (ft_check_nl(line) >= 0)
-			break ;
 	}
 	if (ret < 0)
 		return (NULL);
@@ -74,7 +75,7 @@ char	*ft_readline(char *line, int fd)
 
 int	get_next_line(int fd, char **line)
 {
-	static char rest[OPEN_MAX][BUFFER_SIZE + 1];
+	static char	rest[OPEN_MAX][BUFFER_SIZE + 1];
 	int			nl;
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE < 1 || fd > OPEN_MAX)
@@ -85,7 +86,8 @@ int	get_next_line(int fd, char **line)
 	*line = ft_readline(*line, fd);
 	if (!*line)
 		return (-1);
-	if ((nl = ft_check_nl(*line)) >= 0 || (ft_check_nl(rest[fd])) >= 0)
+	nl = ft_check_nl(*line);
+	if (nl >= 0 || (ft_check_nl(rest[fd])) >= 0)
 	{
 		ft_strcpy(rest[fd], *line + nl + 1);
 		*line = ft_substr(*line, 0, nl);

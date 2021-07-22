@@ -6,99 +6,99 @@
 /*   By: ehafidi <ehafidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 20:51:58 by ehafidi           #+#    #+#             */
-/*   Updated: 2021/07/21 13:53:21 by ehafidi          ###   ########.fr       */
+/*   Updated: 2021/07/22 11:18:29 by ehafidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*ft_strndup(const char *str, size_t len)
+static int	ft_wordcount(char const *str, char sep)
 {
-	unsigned int	i;
-	char			*copy;
+	int	i;
+	int	count;
 
-	if (!(copy = malloc(sizeof(*copy) * (len + 1))))
+	if (str == 0 || str[0] == 0)
 		return (0);
-	i = 0;
-	while (i < len)
+	i = 1;
+	count = 0;
+	if (str[0] != sep)
+		count++;
+	while (str[i] != '\0')
 	{
-		copy[i] = str[i];
+		if (str[i] != sep && str[i - 1] == sep)
+			count++;
 		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	return (count);
 }
 
-static size_t	wrdnb(char const *s, char c)
+static char	**ft_malloc(char const *str, char sep)
 {
-	size_t		i;
-	size_t		wrdnb;
+	int		len;
+	char	**tab_str;
 
-	i = 0;
-	wrdnb = 0;
-	while (s[i])
-	{
-		while (s[i] == c)
-			i++;
-		wrdnb++;
-		while (s[i] && s[i] != c)
-			i++;
-	}
-	return (wrdnb);
+	if (!str)
+		return (0);
+	len = ft_wordcount(str, sep);
+	tab_str = malloc(sizeof(*tab_str) * (len + 1));
+	return (tab_str);
 }
 
-static char		**liberate(char **arr, int ind)
+static int	ft_next_word_count(char const *str, char sep, int i)
 {
-	int i;
+	int	count;
 
-	i = 0;
-	while (i < ind)
+	count = 0;
+	while (str[i] == sep && str[i] != '\0')
 	{
-		free(arr[i]);
 		i++;
 	}
-	free(arr);
-	return (NULL);
-}
-
-void free_tmp(char **tmp)
-{
-	int i;
-
-	i = 0;
-	while (tmp[i])
+	while (str[i] != '\0' && str[i] != sep)
 	{
-		free(tmp[i]);
+		count++;
 		i++;
 	}
-	free(tmp);
+	return (count);
 }
 
-char			**ft_split(char const *s, char c)
+static char	**ft_free(char **str_tab, int i)
 {
-	char		**arr;
-	size_t		i;
-	size_t		j;
+	int	j;
 
-	if (!s)
-		return (NULL);
-	if (!(arr = malloc(sizeof(char*) * (wrdnb(s, c) + 1))))
-		return (NULL);
 	j = 0;
-	while (*s)
+	while (j < i && str_tab[j] != 0)
 	{
-		while (*s == c)
-			s++;
-		i = 0;
-		if (*s)
-		{
-			while (s[i] && s[i] != c)
-				i++;
-			if (!(arr[j++] = ft_strndup(s, i)))
-				return (liberate(arr, (int)(j - 1)));
-			s += i;
-		}
+		free(str_tab[j]);
+		j++;
 	}
-	arr[j] = NULL;
-	return (arr);
+	free(str_tab);
+	return (0);
+}
+
+char	**ft_split(char const *str, char charset)
+{
+	int		s;
+	int		i;
+	int		j;
+	char	**tab_str;
+
+	s = 0;
+	i = -1;
+	tab_str = ft_malloc(str, charset);
+	if (!tab_str)
+		return (0);
+	while (++i < ft_wordcount(str, charset))
+	{
+		j = 0;
+		tab_str[i] = malloc(ft_next_word_count(str, charset, s) + 1);
+		if (!tab_str[i])
+			return (ft_free(tab_str, i));
+		while (str[s] != '\0' && str[s] == charset)
+			s++;
+		while (str[s] != '\0' && str[s] != charset)
+			tab_str[i][j++] = str[s++];
+		tab_str[i][j] = '\0';
+	}
+	tab_str[i] = 0;
+	return (tab_str);
 }
